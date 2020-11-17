@@ -1,8 +1,9 @@
-package com.appsdeveloperblog.app.ws.mobileappws.ui.controller;
+package com.appsdeveloperblog.app.ws.ui.controller;
 
-import com.appsdeveloperblog.app.ws.mobileappws.ui.model.request.UpdateUserDetailsRequestModel;
-import com.appsdeveloperblog.app.ws.mobileappws.ui.model.request.UserDetailsRequestModel;
-import com.appsdeveloperblog.app.ws.mobileappws.ui.model.response.UserRest;
+import com.appsdeveloperblog.app.ws.exceptions.UserServiceException;
+import com.appsdeveloperblog.app.ws.ui.model.request.UserDetailsRequestModel;
+import com.appsdeveloperblog.app.ws.ui.model.response.UserRest;
+import com.appsdeveloperblog.app.ws.ui.model.request.UpdateUserDetailsRequestModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,8 @@ public class UserController {
             produces = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<UserRest> getUser(@PathVariable String userId) {
+
+        if(true) throw new UserServiceException("A user service exception is thrown");
 
         if (users.containsKey(userId)) {
             return new ResponseEntity<>(users.get(userId), HttpStatus.OK);

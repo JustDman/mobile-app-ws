@@ -1,4 +1,4 @@
-package com.appsdeveloperblog.app.ws.mobileappws.ui.model.request;
+package com.appsdeveloperblog.app.ws.ui.model.request;
 
 import javax.validation.constraints.NotNull;
 
