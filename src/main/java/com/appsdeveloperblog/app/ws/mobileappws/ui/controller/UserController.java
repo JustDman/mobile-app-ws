@@ -1,7 +1,10 @@
 package com.appsdeveloperblog.app.ws.mobileappws.ui.controller;
 
+import com.appsdeveloperblog.app.ws.mobileappws.ui.model.request.UserDetailsRequestModel;
 import com.appsdeveloperblog.app.ws.mobileappws.ui.model.response.UserRest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,20 +17,29 @@ public class UserController {
         return "get user was called with page = " + page + " and limit = " + limit + " and sort = " + sort;
     }
 
-    @GetMapping(path = "/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public UserRest getUser(@PathVariable String userId) {
+    @GetMapping(path = "/{userId}",
+            produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<UserRest> getUser(@PathVariable String userId) {
 
         UserRest returnValue = new UserRest();
         returnValue.setEmail("test@test.com");
         returnValue.setFirstName("Dominic");
         returnValue.setLastName("Hofer");
         returnValue.setUserId(userId);
-        return returnValue;
+        return new ResponseEntity<UserRest>(returnValue, HttpStatus.OK);
     }
 
-    @PostMapping
-    public String createUser() {
-        return "create user was called";
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<UserRest> createUser(@RequestBody UserDetailsRequestModel userDetails) {
+        UserRest returnValue = new UserRest();
+        returnValue.setEmail(userDetails.getEmail());
+        returnValue.setFirstName(userDetails.getFirstName());
+        returnValue.setLastName(userDetails.getLastName());
+        return new ResponseEntity<UserRest>(returnValue, HttpStatus.OK);
     }
 
     @PutMapping
