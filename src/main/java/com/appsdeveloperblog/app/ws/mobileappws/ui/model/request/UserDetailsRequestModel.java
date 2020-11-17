@@ -12,11 +12,11 @@ public class UserDetailsRequestModel {
     private String lastName;
 
     @NotNull(message = "Email cannot be null")
-    @Email
+    @Email(message = "Please enter a valid email address")
     private String email;
 
     @NotNull(message = "Password cannot be null")
-    @Size(min = 8, max = 16, message = "Password must be between 8 and 16 characters")
+    @Size(min = 8, message = "Password must be longer or equals 8 characters")
     private String password;
 
     public String getFirstName() {
